@@ -1,0 +1,5 @@
+<!DOCTYPE HTML >
+<html><head><script type="text/javascript" src="http://calling_site/xd.core.js"></script><script type="text/javascript">
+var func = xd.core.getHashVar('cbFunc'), stat = xd.core.getHashVar('status');
+if(parent[func] && typeof parent[func][stat] === 'function')parent[func][stat](decodeURI(xd.core.getHashVar('data')));
+</script><body></html>

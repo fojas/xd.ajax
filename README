@@ -1,0 +1,19 @@
+xd.ajax Cross Domain communicator
+
+Installation
+
+  1) Put the contents of the calling_site folder on the server making the AJAX calls. 
+  2) Put the contents of the target_site folder on the site receiving the AJAX calls.
+  3) Change the src value of the javascript tag in the xd_receiver.html file of the target_site to point to the location of the xd.core.js file on the calling site.
+  4) Include the xd.core.js and xd.ajax.js files on any page making a cross domain request.
+  5) Configure any page making a cross domain call.  The following code is an example of how to configure a site at site1.com to make AJAX calls to a site called site2.com.
+  
+    <script type="text/javascript" >
+      xd.configure({
+        'http://site2.com': {
+                sender : 'http://site2.com/xd_sender.html',
+                receiver : 'http://site1.com/xd_receiver.html'
+        }
+      });
+    </script>
+    

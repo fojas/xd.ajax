@@ -1,0 +1,26 @@
+<!DOCTYPE HTML >
+<html>
+<head>
+<script type="text/javascript" src="/xd.core.js" ></script>
+<!-- Change implementation here. This is a prototype.js implementation -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+<script type="text/javascript" >
+var conf = xd.core.getHashVar();
+var hashPairDelim = xd.core.hashPairDelim();
+var hashValDelim = xd.core.hashValDelim();
+var locationArr = [conf.receiver,'#',hashValDelim,'cbFunc',hashPairDelim,conf.cbFunc];
+new Ajax.Request(conf.url, {
+	method: (conf.type || 'get'),
+	parameters:conf.data,
+	onSuccess:function(f){
+		locationArr.push(hashValDelim,'status',hashPairDelim,'success',hashValDelim,'data',hashPairDelim,f.responseText);
+		window.location.replace(locationArr.join(''));
+	},
+	onFailure:function(f){
+		locationArr.push(hashValDelim,'status',hashPairDelim,'failure',hashValDelim,'data',hashPairDelim,f.responseText);
+		window.location.replace(locationArr.join(''));
+	}
+});
+</script>
+<body>
+</html>

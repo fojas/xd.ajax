@@ -1,0 +1,26 @@
+<!DOCTYPE HTML >
+<html>
+<head>
+<script type="text/javascript" src="/xd.core.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+var conf = xd.core.getHashVar();
+var hashPairDelim = xd.core.hashPairDelim();
+var hashValDelim = xd.core.hashValDelim();
+var locationArr = [conf.receiver,'#',hashValDelim,'cbFunc',hashPairDelim,conf.cbFunc];
+//safari has some caching issues, add a random hash to the request url. ajax requests shouldnt have hashes anyway
+//dont send it for everyone cause IE actually sends the hash to the webserver
+var uniqueHash = ($.browser.webkit || $.browser.safari)?'#'+(new Date).getTime():'';
+$.ajax({url:conf.url+uniqueHash,data:decodeURI(conf.data),contentType:(conf.contentType || "application/json"),
+	type:(conf.type || 'GET'),dataType:"text",cache:'false',
+	success:function(f){
+		locationArr.push(hashValDelim,'status',hashPairDelim,'success',hashValDelim,'data',hashPairDelim,f);
+		window.location.replace(locationArr.join(''));
+	},error:function(f,b,c){
+		locationArr.push(hashValDelim,'status',hashPairDelim,'failure',hashValDelim,'data',hashPairDelim,f.responseText);
+		window.location.replace(locationArr.join(''));
+	}
+});
+</script>
+<body>
+</html>
